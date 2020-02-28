@@ -1,4 +1,4 @@
-# Step By Step Guide: Node Express Server w/JWT User Authentication and Jest Testing for SQLITE3 DB
+# Step By Step Guide: Node Express Server w/JWT User Authentication for SQLITE3 DB
 
 1. create repository > clone it locally w/ `git clone [repoUrl]`
 2. add .gitignore w/ `npx gitignore node || gitignore node`
@@ -16,9 +16,7 @@
         "sqlite3": "^4.1.1"
         },
     "devDependencies": {
-        "jest": "^25.1.0",
         "nodemon": "^2.0.2",
-        "supertest": "^4.0.2"
     }
     ```
 5. configure `scripts object` in `package.json` 
@@ -28,7 +26,6 @@
  
     ```js
     "scripts": {
-        "test": "jest --watch",
         "server": "nodemon index.js",
         "start": "node index.js"
     }
@@ -396,7 +393,7 @@
                 {
                     "id": 1,
                     "username": "user",
-                    "password": "$2a$10$l2jRhdwkrHddCUxB9j0KM.qrdVEUpQAbzKTH6zkAyFHUEfGGnJyJS" //hashed password
+                    "password": "$2a$10$l2jRhdwkrHddCUxB9j0KM.qrdVEUpQAbzKTH6zkAyFHUEfGGnJyJS"
                 }   
             ```
         - <b>Now POST `/api/auth/login` </b>
@@ -407,7 +404,10 @@
                     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxLCJ1c2VybmFtZSI6InVzZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTU4Mjg0ODAwNiwiZXhwIjoxNTgyODUxNjA2fQ.jpqtue3zxSyotOO-Wg0CL_h5B6K3buT2lQ1bnotxye8" //token
                 }
             ```
-    23. Once we've received a token from the server, we have to check our `restricted router`
+    23. Once we've received a token from the server, we have to check our `restricted usersRouter.js` in `server.js`
+        ```js
+        server.use('/api/users', restricted, usersRouter)
+        ```
     - On Postman or Insomnia make the following requests:
         - <b>GET `/api/users`</b> 
         - <b>Server should respond with:</b>
@@ -449,10 +449,10 @@
 - Use the credentials sent inside the body to authenticate the user. On successful login, create a new JWT with the user id as the subject and send it back to the client. If login fails, respond with the correct status code and the message: 'You shall not pass!'
 - If the user is logged in, respond with an array of all the users contained in the database. If the user is not logged in respond with the correct status code and the message: 'You shall not pass!'.
 
-## VISUAL
+## ENDPOINTS
 
 | Feature                | Method | URL                         |
 | :--------------------- | :----- | :------------------------   |
-| Creates a user         | POST   | /api/register               |
-| Authenticates user     | POST   | /api/login                  |
+| Creates a user         | POST   | /api/auth/register          |
+| Authenticates user     | POST   | /api/auth/login             |
 | List of users in DB    | GET    | /api/users                  |
