@@ -67,7 +67,7 @@
     module.exports = server;
     ```
 11. add `knexfile.js` w/ `knex init`
-12. `knexfile.js` development environment configuration for `sqlite3`
+12. `knexfile.js` development environment configuration for `sqlite3`, this is the configuration that connects/creates the .db3 file or can link you to a postgres DB
     ```js
     development: {
         client: 'sqlite3',
@@ -89,7 +89,7 @@
         },
     },
     ```
-13. mkdir `data` and add `dbConfig.js` or `connection.js` (up to you)
+13. mkdir `data` and add `dbConfig.js` or `connection.js` (up to you), this is the instance of knex that will initialize the settings in `knexfile.js`
     ```js
     const knex = require('knex');
     const knexConfig = require('../knexfile.js');

@@ -19,6 +19,7 @@ const Home = (props) =>{
         }
        
     },[props.auth.token])
+    console.log('USERS IN USERSWRAPPER.js',users);
     return(
         <div>
           <UsersWrapper />

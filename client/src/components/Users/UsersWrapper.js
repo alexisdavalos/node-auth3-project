@@ -4,19 +4,15 @@ import {getUsers} from '../../actions/index';
 const UsersWrapper = (props) =>{
     console.log('Props inside usersWrapper', props)
     // const getUsers = props.getUsers();
-    const [users, setUsers] = useState()
-    useEffect(()=>{
-        console.log('Inside Use Effect USersWrapper.js: Fetching Users....')
-       
-       
-    },[props.auth.token])
+
+
     return(
         <div>
             <h3>Users in Database</h3>
             <div className='usersWrapper'>
-                {/* {(props.auth.users !== '') ? props.auth.users.data.map(post => (
-                    <div>user</div>
-                )) : <div></div>} */}
+                {(props.auth.users.data) ? props.auth.users.data.map(user => (
+                    <div key={Date.now()}>username: {user.username}</div>
+                )) : <div></div>}
             </div>
         </div>
     )
