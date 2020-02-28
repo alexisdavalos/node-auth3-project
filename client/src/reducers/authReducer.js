@@ -3,9 +3,11 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, FETCH_USERS_START, FETCH_USE
 
 const initialState = {
   isLoggedIn: false,
+  token: window.localStorage.getItem('token'),
+  currentUser: [],
   isFetching: false,
   error: '',
-  users: []
+  users: ''
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -20,6 +22,8 @@ export const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isLoggedIn: true,
+				token: action.payload.data.token,
+				currentUser: action.payload.config.data.username,
 				isFetching: false,
                 error: ''
 			}

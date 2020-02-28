@@ -20,11 +20,11 @@ const Login = props => {
       [e.target.name]: e.target.value
     })
   }
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     console.log('loggin in..')
     e.preventDefault();
     if (form.username !== '' && form.password !== '') {
-      props.login(form);
+      await props.login(form);
       setError(false);
       history.push("/home")
     } else {
@@ -93,8 +93,11 @@ const mapStateToProps = state => {
   return {
     auth: {
       isLoggedIn: state.auth.isLoggedIn,
+      token: state.auth.token,
+      currentUser: state.auth.currentUser,
       isFetching: state.auth.isFetching,
-      error: state.auth.error
+      error: state.auth.error,
+      users: state.auth.users
     }
   }
 }

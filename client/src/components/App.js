@@ -13,6 +13,9 @@ function App () {
         <header className="App-header">
           <Router>
             <Switch>
+              <Route exact path ='/'>
+              <Login/>
+              </Route>
               <Route path ='/login'>
               <Login />
             </Route> 

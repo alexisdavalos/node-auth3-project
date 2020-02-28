@@ -16,9 +16,9 @@ export const login = (user) => dispatch => {
 		.then(res => dispatch({ type: LOGIN_SUCCESS, payload: res }))
 		.catch(err => dispatch({ type: LOGIN_FAILURE, payload: err }))
 };
-export const getUsers = () => dispatch => {
+export const getUsers = (token) => dispatch => {
 	dispatch({ type: FETCH_USERS_START });
-	axios.get('http://localhost:5000/api/restricted/users')
+	axios.get('http://localhost:5000/api/users', { headers: {"authorization" :  token || window.localStorage.getItem('token')} })
 		.then(res => dispatch({ type: FETCH_USERS_SUCCESS, payload: res }))
 		.catch(err => dispatch({ type: FETCH_USERS_FAILURE, payload: err }))
 };
