@@ -404,7 +404,7 @@
                     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxLCJ1c2VybmFtZSI6InVzZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTU4Mjg0ODAwNiwiZXhwIjoxNTgyODUxNjA2fQ.jpqtue3zxSyotOO-Wg0CL_h5B6K3buT2lQ1bnotxye8" //token
                 }
             ```
-    23. Once we've received a token from the server, we have to check our `restricted usersRouter.js` in `server.js`
+23. Once we've received a token from the server, we have to check our `restricted usersRouter.js` in `server.js`
         ```js
         server.use('/api/users', restricted, usersRouter)
         ```
