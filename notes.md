@@ -69,31 +69,40 @@
 11. add `knexfile.js` w/ `knex init`
 12. `knexfile.js` development environment configuration for `sqlite3`, this is the configuration that connects/creates the .db3 file or can link you to a postgres DB
     ```js
-    development: {
+    const sqlite3 = {
         client: 'sqlite3',
-        useNullAsDefault: true,
-        connection: {
-            filename: './data/users.db3',
-            //if no file is found, will generate a .db3
-        },
-        pool: {
-            afterCreate: (conn, done) => {
-            conn.run('PRAGMA foreign_keys = ON', done);
+            connection: { filename: './database/dev.db3' },
+                useNullAsDefault: true,
+            migrations: {
+                directory: './database/migrations',
+                tableName: 'dbmigrations',
             },
+            seeds: { 
+                directory: './database/seeds' 
+            },
+        };
+    module.exports = {
+        development: {
+            ...sqlite3,
+            connection: {filename:'./database/dev.db3'}, //creates dev database
         },
-        migrations: {
-            directory: './data/migrations',
-        },
-        seeds: {
-            directory: './data/seeds',
-        },
-    },
+        testing: {
+            ...sqlite3,
+            connection: {filename:'./database/test.db3'} //creates testing database
+        }
+    }
+
     ```
 13. mkdir `data` and add `dbConfig.js` or `connection.js` (up to you), this is the instance of knex that will initialize the settings in `knexfile.js`
     ```js
-    const knex = require('knex');
-    const knexConfig = require('../knexfile.js');
-    module.exports = knex(knexConfig.development);
+    const knex = require("knex");
+
+    const knexfile = require("../knexfile.js");
+
+    const env = process.env.NODE_ENV || "development";
+
+    module.exports = knex(knexfile[env]); //sets configuration based on env variable
+
     ```
 14. run `knex migrate:make create_Tables` to generate migrations file
 15. configure the newly created file ex: `20200227172012_create_Tables.js`
